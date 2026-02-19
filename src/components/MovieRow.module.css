@@ -1,0 +1,45 @@
+.row {
+  margin-bottom: 1.75rem;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 3vw;
+}
+
+.scroller {
+  position: relative;
+}
+
+.track {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 3vw 0.75rem;
+  scroll-behavior: smooth;
+}
+
+.track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.track::-webkit-scrollbar-thumb {
+  background-color: rgba(120, 120, 120, 0.7);
+  border-radius: 999px;
+}
+
+.track::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .title {
+    margin-left: 1.2rem;
+  }
+
+  .track {
+    padding-left: 1.2rem;
+  }
+}
+

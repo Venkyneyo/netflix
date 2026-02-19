@@ -1,0 +1,31 @@
+.page {
+  min-height: 100vh;
+  background-color: #141414;
+  color: #ffffff;
+}
+
+.rows {
+  margin-top: -3rem;
+}
+
+.sectionTitle {
+  margin: 0 0 0.5rem 3vw;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.emptySearch {
+  padding: 2rem 3vw;
+  color: #e5e5e5;
+}
+
+@media (max-width: 768px) {
+  .rows {
+    margin-top: -1.5rem;
+  }
+
+  .sectionTitle {
+    margin-left: 1.2rem;
+  }
+}
+
