@@ -81,31 +81,44 @@ function Navbar({ searchQuery, onSearchChange, isAuthenticated, onLogout }) {
           My List
         </span>
       </nav>
-      <form
-        className={styles.searchForm}
-        onSubmit={(e) => {
-          // Prevent page reload on enter
-          e.preventDefault();
-        }}
-      >
-        <span className={styles.searchIcon}>🔍</span>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          placeholder="Search"
-          className={styles.searchInput}
-        />
-      </form>
-      {isAuthenticated && onLogout && (
-        <button
-          type="button"
-          className={styles.logoutButton}
-          onClick={onLogout}
+      <div className={styles.rightSide}>
+        <form
+          className={styles.searchForm}
+          onSubmit={(e) => {
+            // Prevent page reload on enter
+            e.preventDefault();
+          }}
         >
-          Sign Out
-        </button>
-      )}
+          <span className={styles.searchIcon}>🔍</span>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Search"
+            className={styles.searchInput}
+          />
+        </form>
+        {isAuthenticated && (
+          <>
+            <button
+              type="button"
+              className={styles.profileButton}
+              onClick={() => navigate("/profile")}
+            >
+              Profile
+            </button>
+            {onLogout && (
+              <button
+                type="button"
+                className={styles.logoutButton}
+                onClick={onLogout}
+              >
+                Sign Out
+              </button>
+            )}
+          </>
+        )}
+      </div>
     </header>
   );
 }

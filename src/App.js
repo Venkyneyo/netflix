@@ -4,6 +4,7 @@ import { useAuth } from "./contexts/AuthContext";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
 
@@ -42,6 +43,7 @@ function App() {
               <main style={{ paddingTop: "64px" }}>
                 <Routes>
                   <Route path="/" element={<Home searchQuery={searchQuery} />} />
+                  <Route path="/profile" element={<Profile />} />
                   <Route path="/movie/:id" element={<MovieDetails />} />
                 </Routes>
               </main>

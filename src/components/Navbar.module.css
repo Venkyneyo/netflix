@@ -42,6 +42,11 @@
   color: #ffffff;
 }
 
+.rightSide {
+  display: flex;
+  align-items: center;
+}
+
 .searchForm {
   display: flex;
   align-items: center;
@@ -68,6 +73,22 @@
 .searchIcon {
   font-size: 1rem;
   color: #ffffff;
+}
+
+.profileButton {
+  margin-left: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  background-color: rgba(15, 23, 42, 0.9);
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.9);
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.profileButton:hover {
+  background-color: rgba(30, 64, 175, 0.8);
+  border-color: #e5e7eb;
 }
 
 .logoutButton {

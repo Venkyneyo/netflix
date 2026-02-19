@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 const AUTH_KEY = "cinescope_auth";
 const USERS_KEY = "cinescope_users";
+const CURRENT_USER_KEY = "cinescope_current_user_id";
 
 const AuthContext = createContext(null);
 
@@ -22,12 +23,18 @@ const saveUsers = (users) => {
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
-    setUsers(loadUsers());
+    const loadedUsers = loadUsers();
+    setUsers(loadedUsers);
     const stored = localStorage.getItem(AUTH_KEY);
     if (stored === "true") {
       setIsAuthenticated(true);
+    }
+    const storedUserId = localStorage.getItem(CURRENT_USER_KEY);
+    if (storedUserId) {
+      setCurrentUserId(storedUserId);
     }
   }, []);
 
@@ -84,17 +91,47 @@ export function AuthProvider({ children }) {
     }
 
     localStorage.setItem(AUTH_KEY, "true");
+    localStorage.setItem(CURRENT_USER_KEY, user.id);
     setIsAuthenticated(true);
-    return { ok: true };
+    setCurrentUserId(user.id);
+    setUsers(existingUsers);
+    return { ok: true, user };
   };
 
   const logout = () => {
     localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem(CURRENT_USER_KEY);
     setIsAuthenticated(false);
+    setCurrentUserId(null);
+  };
+
+  const currentUser =
+    currentUserId && users.length
+      ? users.find((u) => u.id === currentUserId) || null
+      : null;
+
+  const updateCurrentUserName = (fullName) => {
+    if (!currentUserId) return;
+    const trimmed = (fullName || "").trim();
+    const next = users.map((u) =>
+      u.id === currentUserId ? { ...u, fullName: trimmed } : u
+    );
+    setUsers(next);
+    saveUsers(next);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, users, register, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        users,
+        currentUser,
+        register,
+        login,
+        logout,
+        updateCurrentUserName,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

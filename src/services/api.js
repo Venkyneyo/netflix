@@ -87,48 +87,6 @@ export const getPosterUrl = (url) =>
 export const getBackdropUrl = (url) =>
   url && url !== "N/A" ? url : "";
 
-// Helper for category-style lists using OMDB search
-const fetchCategoryMovies = async (term, year) => {
-  const response = await omdbClient.get("/", {
-    params: {
-      apikey: API_KEY,
-      s: term,
-      type: "movie",
-      ...(year ? { y: year } : {}),
-    },
-  });
-
-  const data = response.data;
-
-  if (data.Response === "False") {
-    return [];
-  }
-
-  const searchItems = data.Search || [];
-  const detailResponses = await Promise.all(
-    searchItems.map((item) =>
-      omdbClient
-        .get("/", {
-          params: {
-            apikey: API_KEY,
-            i: item.imdbID,
-            plot: "short",
-          },
-        })
-        .catch(() => null)
-    )
-  );
-
-  const movies = [];
-  detailResponses.forEach((res) => {
-    if (res && res.data && res.data.Response === "True") {
-      movies.push(normalizeDetails(res.data));
-    }
-  });
-
-  return movies;
-};
-
 const fetchSearchPage = async (term, { year, page = 1 } = {}) => {
   const response = await omdbClient.get("/", {
     params: {

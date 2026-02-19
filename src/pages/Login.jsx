@@ -18,11 +18,11 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/profile";
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(from, { replace: true });
+      navigate("/profile", { replace: true });
     }
   }, [isAuthenticated, navigate, from]);
 
@@ -39,7 +39,7 @@ function Login() {
     }
     const result = login(identifier.trim(), password);
     if (result.ok) {
-      navigate(from, { replace: true });
+      navigate("/profile", { replace: true });
     } else {
       setError(result.message || "Login failed.");
     }
